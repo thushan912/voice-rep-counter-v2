@@ -42,12 +42,12 @@ const howItWorksPath = localizedPath('/how-it-works/', locale);
   ></div>
 
   <div class="container-wide relative grid items-center gap-10 pt-6 pb-14 sm:pt-8 sm:pb-16 lg:grid-cols-2 lg:gap-[clamp(48px,4vw,80px)] lg:pt-10 lg:pb-24">
-    <div>
+    <div class="text-center">
       <p class="eyebrow">{c.eyebrow}</p>
-      <h1 class="hero-title text-balance mt-5 max-w-[14ch]">{c.h1}</h1>
-      <p class="mt-6 max-w-[58ch] text-lg text-muted-strong">{c.lead}</p>
+      <h1 class="hero-title text-balance mx-auto mt-5 max-w-[14ch]">{c.h1}</h1>
+      <p class="mx-auto mt-6 max-w-[58ch] text-lg text-muted-strong">{c.lead}</p>
 
-      <div class="mt-8">
+      <div class="mt-8 flex justify-center">
         <StoreBadges locale={locale} />
       </div>
 
@@ -59,7 +59,7 @@ const howItWorksPath = localizedPath('/how-it-works/', locale);
         <span aria-hidden="true">→</span>
       </a>
 
-      <ul class="mt-8 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-muted">
+      <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-sm text-muted">
         {
           c.proof.map((item, index) => (
             <li class="flex items-center gap-2">
