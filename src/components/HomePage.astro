@@ -260,9 +260,10 @@ const howItWorksPath = localizedPath('/how-it-works/', locale);
 <!-- FAQ -->
 <section class="section border-t border-line">
   <div class="container-wide">
-    <h2 class="section-title text-balance">{c.faqHeading}</h2>
-    <div class="mt-10 max-w-[860px]">
-      <FAQList items={c.faq} />
+    <h2 class="section-title text-balance text-center">{c.faqHeading}</h2>
+    <div class="mx-auto mt-10 grid max-w-[1120px] items-start gap-6 md:grid-cols-2">
+      <FAQList items={c.faq.slice(0, Math.ceil(c.faq.length / 2))} />
+      <FAQList items={c.faq.slice(Math.ceil(c.faq.length / 2))} />
     </div>
   </div>
 </section>
