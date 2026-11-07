@@ -160,7 +160,7 @@
 
   /* Consistent vertical rhythm for full-width page sections. */
   .section {
-    padding-block: clamp(48px, 6vw, 112px);
+    padding-block: clamp(32px, 4.5vw, 80px);
   }
 
   /* Responsive display typography. */
