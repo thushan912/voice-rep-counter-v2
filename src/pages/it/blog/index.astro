@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogIndexPage from '../../../components/BlogIndexPage.astro';
+
+const locale = 'it';
+const posts = (await getCollection('blog', ({ data }) => data.locale === 'it' && !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const metaTitle = 'Blog di Voice Rep Counter | Guide su ritmo e timer';
+const metaDescription =
+  'Guide pratiche su conteggio vocale delle ripetizioni, timer di riposo e differenza tra timer vocali e rilevamento automatico.';
+---
+
+<BaseLayout locale={locale} title={metaTitle} description={metaDescription} path="/it/blog/">
+  <BlogIndexPage
+    locale={locale}
+    h1="Blog"
+    lead="Guide brevi e pratiche su ritmo dell’allenamento, pause e uso di un timer guidato dalla voce."
+    posts={posts.map((post) => ({ slug: post.data.slug, data: post.data }))}
+  />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactPage from '../../../components/ContactPage.astro';
+import { contact } from '../../../data/contact';
+
+const locale = 'it';
+const c = contact.it;
+---
+
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} path="/it/contact/">
+  <ContactPage locale={locale} />
+</BaseLayout>

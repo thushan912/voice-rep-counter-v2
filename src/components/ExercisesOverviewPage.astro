@@ -1,0 +1,51 @@
+---
+import { exerciseOrder, exercises, exercisesOverview } from '../data/exercises';
+import { type Locale } from '../data/site';
+import { localizedPath } from '../i18n/routes';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FinalCTA from './FinalCTA.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const overview = exercisesOverview[locale];
+---
+
+<article>
+  <div class="border-b border-line">
+    <div class="container-wide py-10 sm:py-14">
+      <Breadcrumbs locale={locale} items={[{ name: overview.h1 }]} />
+      <h1 class="text-balance max-w-[22ch] text-4xl font-bold sm:text-5xl">{overview.h1}</h1>
+      <p class="mt-6 max-w-[64ch] text-lg text-muted-strong">{overview.lead}</p>
+      <p class="mt-4 max-w-[64ch] text-sm text-muted">{overview.note}</p>
+    </div>
+  </div>
+
+  <div class="container-wide py-14 sm:py-20">
+    <div class="grid gap-4 md:grid-cols-3">
+      {
+        exerciseOrder.map((slug) => {
+          const exercise = exercises[locale][slug];
+          return (
+            <a
+              href={localizedPath(`/exercises/${slug}/`, locale)}
+              class="card group flex flex-col p-7 transition-colors hover:border-accent"
+            >
+              <h2 class="text-xl font-semibold text-ink transition-colors group-hover:text-accent">
+                {exercise.navLabel}
+              </h2>
+              <p class="mt-3 flex-1 text-muted-strong">{exercise.cardDescription}</p>
+              <span class="mt-5 inline-flex items-center gap-2 font-semibold text-accent">
+                <span class="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</article>
+
+<FinalCTA locale={locale} />

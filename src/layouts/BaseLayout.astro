@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getUI } from '../i18n/ui';
+import type { Locale, ImageAsset } from '../data/site';
+import type { HreflangAlternate } from '../i18n/routes';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path: string;
+  image?: ImageAsset;
+  noindex?: boolean;
+  article?: { publishedTime?: string; modifiedTime?: string };
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  hreflang?: HreflangAlternate[];
+  xDefault?: string;
+}
+
+const { locale, path, title, description, image, noindex, article, jsonLd, hreflang, xDefault } = Astro.props;
+const t = getUI(locale);
+---
+
+<!doctype html>
+<html lang={t.lang} dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEOHead
+      locale={locale}
+      title={title}
+      description={description}
+      path={path}
+      image={image}
+      noindex={noindex}
+      article={article}
+      jsonLd={jsonLd}
+      hreflang={hreflang}
+      xDefault={xDefault}
+    />
+  </head>
+  <body class="bg-bg text-ink antialiased">
+    <a href="#main-content" class="skip-link">{t.skipToContent}</a>
+    <Header locale={locale} currentPath={path} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

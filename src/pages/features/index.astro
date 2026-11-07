@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeaturesOverviewPage from '../../components/FeaturesOverviewPage.astro';
+import { featuresOverview } from '../../data/features';
+
+const locale = 'en';
+const overview = featuresOverview.en;
+---
+
+<BaseLayout locale={locale} title={overview.metaTitle} description={overview.metaDescription} path="/features/">
+  <FeaturesOverviewPage locale={locale} />
+</BaseLayout>

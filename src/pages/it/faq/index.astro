@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQPage from '../../../components/FAQPage.astro';
+import { faqPage } from '../../../data/faq';
+
+const locale = 'it';
+const c = faqPage.it;
+---
+
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} path="/it/faq/">
+  <FAQPage locale={locale} />
+</BaseLayout>

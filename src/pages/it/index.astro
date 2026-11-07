@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomePage from '../../components/HomePage.astro';
+import { SITE, APP_LINKS } from '../../data/site';
+import { home } from '../../data/home';
+
+const locale = 'it';
+const c = home.it;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: `${SITE.url}/it/`,
+    description: c.metaDescription,
+    inLanguage: 'it',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: SITE.storeName,
+    url: `${SITE.url}/it/`,
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Android, iOS',
+    description:
+      'Un timer di allenamento guidato dalla voce che pronuncia le ripetizioni a intervalli configurati e include il conto alla rovescia delle pause.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    downloadUrl: [APP_LINKS.googlePlay, APP_LINKS.appStore],
+  },
+];
+---
+
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} path="/it/" jsonLd={jsonLd}>
+  <HomePage locale={locale} />
+</BaseLayout>

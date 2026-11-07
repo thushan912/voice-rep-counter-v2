@@ -1,0 +1,52 @@
+---
+import { howItWorks } from '../data/howItWorks';
+import { type Locale } from '../data/site';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FinalCTA from './FinalCTA.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = howItWorks[locale];
+---
+
+<article>
+  <div class="border-b border-line">
+    <div class="container-wide py-10 sm:py-14">
+      <Breadcrumbs locale={locale} items={[{ name: c.h1 }]} />
+      <h1 class="text-balance max-w-[20ch] text-4xl font-bold sm:text-5xl">{c.h1}</h1>
+      <p class="mt-6 max-w-[64ch] text-lg text-muted-strong">{c.lead}</p>
+    </div>
+  </div>
+
+  <div class="container-wide py-14 sm:py-20">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        c.examples.map((example, index) => (
+          <section class="card flex flex-col p-7">
+            <span class="font-display text-4xl font-bold text-accent">{String(index + 1).padStart(2, '0')}</span>
+            <h2 class="mt-4 text-xl font-semibold">{example.title}</h2>
+            <p class="mt-2 text-muted-strong">{example.intro}</p>
+            <ol class="mt-5 grid flex-1 gap-3">
+              {
+                example.steps.map((step) => (
+                  <li class="flex gap-3">
+                    <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>
+                    <p class="text-sm text-muted-strong">{step}</p>
+                  </li>
+                ))
+              }
+            </ol>
+            <p class="mt-5 border-t border-line pt-4 text-sm text-muted">{example.note}</p>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="mt-10 max-w-[72ch] text-sm text-muted">{c.screenshotNote}</p>
+  </div>
+</article>
+
+<FinalCTA locale={locale} />

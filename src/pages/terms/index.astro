@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { terms } from '../../data/legal';
+
+const locale = 'en';
+const c = terms.en;
+---
+
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} path="/terms/">
+  <LegalPage locale={locale} content={c} />
+</BaseLayout>

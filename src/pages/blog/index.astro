@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogIndexPage from '../../components/BlogIndexPage.astro';
+
+const locale = 'en';
+const posts = (await getCollection('blog', ({ data }) => data.locale === 'en' && !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const metaTitle = 'Voice Rep Counter Blog | Workout Pacing & Timer Guides';
+const metaDescription =
+  'Practical guides on spoken rep pacing, rest timers, bodyweight circuits, and the difference between voice timers and automatic rep detection.';
+---
+
+<BaseLayout locale={locale} title={metaTitle} description={metaDescription} path="/blog/">
+  <BlogIndexPage
+    locale={locale}
+    h1="Blog"
+    lead="Short, practical guides on workout pacing, rest timing, and getting the most from a voice-guided timer."
+    posts={posts.map((post) => ({ slug: post.data.slug, data: post.data }))}
+  />
+</BaseLayout>

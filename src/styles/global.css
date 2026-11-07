@@ -1,0 +1,326 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+@import "tailwindcss";
+
+@theme {
+  /* Brand surfaces */
+  --color-bg: #050805;
+  --color-surface: #0c110d;
+  --color-surface-raised: #111813;
+  --color-surface-hover: #19221b;
+
+  /* Text */
+  --color-ink: #f7f9f5;
+  --color-muted: #a7b0a8;
+  --color-muted-strong: #c8d0c8;
+
+  /* Accent + borders */
+  --color-line: rgba(211, 255, 181, 0.15);
+  --color-line-strong: rgba(211, 255, 181, 0.32);
+  --color-accent: #c8f500;
+  --color-accent-strong: #d6ff18;
+  --color-accent-on: #071000;
+  --color-focus: #d6ff18;
+
+  /* Radii */
+  --radius-card: 22px;
+  --radius-button: 12px;
+
+  /* Typography */
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Keep anchored targets clear of the sticky header. */
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    font-weight: 650;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-on);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.75rem 1.1rem;
+    background-color: var(--color-accent);
+    color: var(--color-accent-on);
+    border-radius: var(--radius-button);
+    font-weight: 650;
+    transform: translateY(-160%);
+    transition: transform 160ms ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  /* One consistent, centered content container for the whole site. */
+  .container-wide {
+    width: min(calc(100% - 64px), 1600px);
+    margin-inline: auto;
+  }
+
+  .container-narrow {
+    width: min(calc(100% - 64px), 920px);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 480px) {
+    .container-wide {
+      width: calc(100% - 32px);
+    }
+
+    .container-narrow {
+      width: calc(100% - 32px);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .container-wide {
+      width: min(calc(100% - 128px), 1600px);
+    }
+
+    .container-narrow {
+      width: min(calc(100% - 128px), 920px);
+    }
+  }
+
+  /* Consistent vertical rhythm for full-width page sections. */
+  .section {
+    padding-block: clamp(48px, 6vw, 112px);
+  }
+
+  /* Responsive display typography. */
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: clamp(1.9rem, 3.2vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-button);
+    font-weight: 650;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-accent-on);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-strong);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-line-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-strong);
+  }
+
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Landscape feature images: balanced, consistent, non-stretching. */
+  .feature-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 1px solid var(--color-line);
+  }
+
+  /* Hero styling lives in HomePage.astro (scoped style block) so the athlete
+     background and the phone mockup stay in independent, non-overlapping layers. */
+
+  /* Editorial/prose styling for Markdown and long-form legal content */
+  .rich-text {
+    color: var(--color-muted-strong);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .rich-text h2 {
+    color: var(--color-ink);
+    font-size: 1.6rem;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .rich-text h3 {
+    color: var(--color-ink);
+    font-size: 1.25rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .rich-text p {
+    margin: 0 0 1.1rem;
+  }
+
+  .rich-text ul,
+  .rich-text ol {
+    margin: 0 0 1.1rem;
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .rich-text ul {
+    list-style: disc;
+  }
+
+  .rich-text ol {
+    list-style: decimal;
+  }
+
+  .rich-text li::marker {
+    color: var(--color-accent);
+  }
+
+  .rich-text a {
+    color: var(--color-accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .rich-text a:hover {
+    color: var(--color-accent);
+  }
+
+  .rich-text strong {
+    color: var(--color-ink);
+  }
+
+  .rich-text blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--color-muted);
+  }
+
+  .rich-text code {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    padding: 0.1em 0.35em;
+    border-radius: 6px;
+  }
+}

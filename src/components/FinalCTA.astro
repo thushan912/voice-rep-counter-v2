@@ -1,0 +1,41 @@
+---
+import StoreBadges from './StoreBadges.astro';
+import type { Locale } from '../data/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    heading: 'Ready to let the voice count?',
+    body: 'Choose your reps, choose your pace, and focus on the workout in front of you.',
+    trust: 'Free with ads · No account needed',
+  },
+  it: {
+    heading: 'Pronto ad allenarti seguendo la voce?',
+    body: 'Scegli le tue ripetizioni, scegli il ritmo e concentrati sull’allenamento che hai davanti.',
+    trust: 'Gratis con pubblicità · Nessun account richiesto',
+  },
+} as const;
+
+const c = copy[locale];
+---
+
+<section id="download" class="relative overflow-hidden border-t border-line">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_0%,rgba(200,245,0,0.12),transparent_65%)]"
+  ></div>
+  <div class="container-wide section relative text-center">
+    <p class="eyebrow justify-center">Voice Rep Counter</p>
+    <h2 class="text-balance mx-auto mt-4 max-w-[20ch] text-4xl font-bold sm:text-5xl">{c.heading}</h2>
+    <p class="mx-auto mt-5 max-w-[58ch] text-lg text-muted-strong">{c.body}</p>
+    <div class="mt-8 flex justify-center">
+      <StoreBadges locale={locale} />
+    </div>
+    <p class="mt-5 text-sm text-muted">{c.trust}</p>
+  </div>
+</section>

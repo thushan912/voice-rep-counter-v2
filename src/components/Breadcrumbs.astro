@@ -1,0 +1,53 @@
+---
+import { getUI } from '../i18n/ui';
+import type { Locale } from '../data/site';
+import { absoluteUrl, homePath } from '../i18n/routes';
+
+interface Crumb {
+  name: string;
+  href?: string;
+}
+
+interface Props {
+  locale: Locale;
+  items: Crumb[];
+}
+
+const { locale, items } = Astro.props;
+const t = getUI(locale);
+
+const crumbs: Crumb[] = [{ name: t.common.home, href: homePath(locale) }, ...items];
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.name,
+    ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {}),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="mb-6">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-muted">
+    {
+      crumbs.map((crumb, index) => {
+        const isLast = index === crumbs.length - 1;
+        return (
+          <li class="flex items-center gap-2">
+            {index > 0 && <span aria-hidden="true" class="text-line-strong">/</span>}
+            {isLast || !crumb.href ? (
+              <span aria-current="page" class="text-muted-strong">{crumb.name}</span>
+            ) : (
+              <a href={crumb.href} class="transition-colors hover:text-accent">{crumb.name}</a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />

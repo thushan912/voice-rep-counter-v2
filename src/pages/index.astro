@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomePage from '../components/HomePage.astro';
+import { SITE, APP_LINKS } from '../data/site';
+import { home } from '../data/home';
+
+const locale = 'en';
+const c = home.en;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    description: c.metaDescription,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: SITE.storeName,
+    url: `${SITE.url}/`,
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Android, iOS',
+    description:
+      'A voice-guided workout timer that speaks repetitions at configured intervals and includes rest countdowns.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    downloadUrl: [APP_LINKS.googlePlay, APP_LINKS.appStore],
+  },
+];
+---
+
+<BaseLayout locale={locale} title={c.metaTitle} description={c.metaDescription} path="/" jsonLd={jsonLd}>
+  <HomePage locale={locale} />
+</BaseLayout>

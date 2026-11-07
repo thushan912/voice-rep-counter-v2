@@ -1,0 +1,136 @@
+---
+import { features, type FeatureSlug } from '../data/features';
+import { IMAGES, type Locale } from '../data/site';
+import { getUI } from '../i18n/ui';
+import { localizedPath } from '../i18n/routes';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FAQList from './FAQList.astro';
+import FinalCTA from './FinalCTA.astro';
+
+interface Props {
+  locale: Locale;
+  slug: FeatureSlug;
+}
+
+const { locale, slug } = Astro.props;
+const t = getUI(locale);
+const feature = features[locale][slug];
+
+const featureImages = {
+  voiceRepCounting: IMAGES.voiceRepCounting,
+  restTimer: IMAGES.restTimer,
+  customSessions: IMAGES.customSessions,
+} as const;
+
+const image = feature.image ? featureImages[feature.image] : null;
+const featuresPath = localizedPath('/features/', locale);
+---
+
+<article>
+  <div class="border-b border-line">
+    <div class="container-wide py-10 sm:py-14">
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { name: t.nav.features, href: featuresPath },
+          { name: feature.navLabel },
+        ]}
+      />
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <h1 class="text-balance text-4xl font-bold sm:text-5xl">{feature.h1}</h1>
+          <p class="mt-6 max-w-[60ch] text-lg text-muted-strong">{feature.lead}</p>
+        </div>
+        {
+          image && (
+            <div>
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                decoding="async"
+                class="feature-image"
+              />
+              <p class="mt-3 text-xs text-muted">{t.common.illustrationNote}</p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide py-14 sm:py-20">
+    <div class="grid gap-14 lg:grid-cols-[1.5fr_1fr]">
+      <div class="space-y-14">
+        <section>
+          <h2 class="text-2xl font-bold sm:text-3xl">{feature.example.heading}</h2>
+          <div class="mt-4 grid gap-4 text-lg text-muted-strong">
+            {
+              feature.example.body.map((paragraph) => (
+                <p class="max-w-[70ch]">{paragraph}</p>
+              ))
+            }
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold sm:text-3xl">{feature.howTo.heading}</h2>
+          <ol class="mt-6 grid gap-3">
+            {
+              feature.howTo.steps.map((step, index) => (
+                <li class="flex gap-4">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line-strong bg-surface font-display font-bold text-accent">
+                    {index + 1}
+                  </span>
+                  <p class="max-w-[64ch] pt-1 text-muted-strong">{step}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+      </div>
+
+      <aside class="space-y-8 lg:sticky lg:top-24 lg:self-start">
+        <section class="card p-7">
+          <h2 class="text-xl font-semibold">{feature.limitations.heading}</h2>
+          <div class="mt-4 grid gap-3 text-muted-strong">
+            {
+              feature.limitations.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="card p-7">
+          <h2 class="text-lg font-semibold">{t.common.relatedPages}</h2>
+          <ul class="mt-4 grid gap-2">
+            {
+              feature.related.map((related) => (
+                <li>
+                  <a
+                    href={localizedPath(`/features/${related.slug}/`, locale)}
+                    class="font-semibold text-accent transition-colors hover:text-accent-strong"
+                  >
+                    {related.label} →
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <section class="mt-20">
+      <h2 class="text-2xl font-bold sm:text-3xl">{t.nav.faq}</h2>
+      <div class="mt-8 max-w-[820px]">
+        <FAQList items={feature.faqs} />
+      </div>
+    </section>
+  </div>
+</article>
+
+<FinalCTA locale={locale} />

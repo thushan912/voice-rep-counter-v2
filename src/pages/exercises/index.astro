@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExercisesOverviewPage from '../../components/ExercisesOverviewPage.astro';
+import { exercisesOverview } from '../../data/exercises';
+
+const locale = 'en';
+const overview = exercisesOverview.en;
+---
+
+<BaseLayout locale={locale} title={overview.metaTitle} description={overview.metaDescription} path="/exercises/">
+  <ExercisesOverviewPage locale={locale} />
+</BaseLayout>

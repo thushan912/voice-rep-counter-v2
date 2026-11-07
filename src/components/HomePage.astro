@@ -1,0 +1,270 @@
+---
+import { home } from '../data/home';
+import { IMAGES, type Locale } from '../data/site';
+import { localizedPath } from '../i18n/routes';
+import StoreBadges from './StoreBadges.astro';
+import FAQList from './FAQList.astro';
+import FinalCTA from './FinalCTA.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = home[locale];
+
+const featureImages = {
+  voiceRepCounting: IMAGES.voiceRepCounting,
+  restTimer: IMAGES.restTimer,
+  customSessions: IMAGES.customSessions,
+} as const;
+
+const howItWorksPath = localizedPath('/how-it-works/', locale);
+---
+
+<!-- Hero -->
+<section class="relative isolate overflow-hidden">
+  <div class="absolute inset-0 -z-20">
+    <img
+      src={IMAGES.heroBackground.src}
+      alt=""
+      aria-hidden="true"
+      width={IMAGES.heroBackground.width}
+      height={IMAGES.heroBackground.height}
+      fetchpriority="high"
+      decoding="async"
+      class="h-full w-full object-cover"
+    />
+  </div>
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 bg-[linear-gradient(100deg,rgba(5,8,5,0.96)_0%,rgba(5,8,5,0.84)_40%,rgba(5,8,5,0.55)_100%)]"
+  ></div>
+
+  <div class="container-wide relative grid items-center gap-10 py-14 sm:py-16 lg:grid-cols-2 lg:gap-[clamp(48px,4vw,80px)] lg:py-24">
+    <div>
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h1 class="hero-title text-balance mt-5 max-w-[14ch]">{c.h1}</h1>
+      <p class="mt-6 max-w-[58ch] text-lg text-muted-strong">{c.lead}</p>
+
+      <div class="mt-8">
+        <StoreBadges locale={locale} />
+      </div>
+
+      <a
+        href={howItWorksPath}
+        class="mt-5 inline-flex items-center gap-2 font-semibold text-accent transition-colors hover:text-accent-strong"
+      >
+        {c.seeHowItWorks}
+        <span aria-hidden="true">→</span>
+      </a>
+
+      <ul class="mt-8 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-muted">
+        {
+          c.proof.map((item, index) => (
+            <li class="flex items-center gap-2">
+              {index > 0 && <span aria-hidden="true" class="text-line-strong">·</span>}
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-3 text-sm text-muted-strong">{c.pricing}</p>
+    </div>
+
+    <div class="flex justify-center lg:justify-end">
+      <img
+        src={IMAGES.appMockup.src}
+        alt={IMAGES.appMockup.alt}
+        width={IMAGES.appMockup.width}
+        height={IMAGES.appMockup.height}
+        fetchpriority="high"
+        decoding="async"
+        class="w-[min(100%,clamp(260px,32vw,420px))] rounded-[22px]"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Value proposition -->
+<section class="section border-b border-line">
+  <div class="container-wide">
+    <div class="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-end">
+      <h2 class="section-title text-balance">{c.value.heading}</h2>
+      <p class="max-w-[60ch] text-lg text-muted-strong">{c.value.intro}</p>
+    </div>
+
+    <div class="mt-12 grid gap-4 md:grid-cols-3">
+      {
+        c.value.cards.map((card) => (
+          <article class="card p-6">
+            <h3 class="text-lg font-semibold text-accent">{card.title}</h3>
+            <p class="mt-3 text-muted-strong">{card.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Showcase feature blocks -->
+<section class="section">
+  <div class="container-wide grid gap-20">
+    {
+      c.features.map((feature, index) => {
+        const image = featureImages[feature.image];
+        const reversed = index % 2 === 1;
+        return (
+          <article class="grid items-center gap-8 lg:grid-cols-2 lg:gap-[clamp(48px,4vw,80px)]">
+            <div class={reversed ? 'lg:order-2' : ''}>
+              <p class="eyebrow">{feature.kicker}</p>
+              <h2 class="text-balance mt-4 text-3xl font-bold sm:text-4xl">{feature.heading}</h2>
+              <p class="mt-5 max-w-[58ch] text-lg text-muted-strong">{feature.body}</p>
+              <a href={localizedPath(`/features/${feature.slug}/`, locale)} class="btn btn-secondary mt-7">
+                {feature.cta}
+              </a>
+            </div>
+            <div class={reversed ? 'lg:order-1' : ''}>
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                decoding="async"
+                class="feature-image"
+              />
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+</section>
+
+<!-- Sequential routines -->
+<section class="section border-y border-line bg-surface">
+  <div class="container-wide grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-[clamp(48px,4vw,80px)]">
+    <div>
+      <p class="eyebrow">{c.sequential.kicker}</p>
+      <h2 class="section-title text-balance mt-4">{c.sequential.heading}</h2>
+      <p class="mt-5 max-w-[58ch] text-lg text-muted-strong">{c.sequential.body}</p>
+      <ul class="mt-6 grid gap-2 text-muted-strong">
+        {
+          c.sequential.points.map((point) => (
+            <li class="flex items-center gap-2">
+              <span aria-hidden="true" class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+              {point}
+            </li>
+          ))
+        }
+      </ul>
+      <a href={localizedPath('/features/sequential-workouts/', locale)} class="btn btn-primary mt-7">
+        {c.sequential.cta}
+      </a>
+    </div>
+
+    <div aria-label={c.sequential.heading}>
+      <ol class="grid gap-3">
+        {
+          c.sequential.points.map((point, index) => (
+            <li class="flex items-center gap-4">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-line-strong bg-bg font-display text-lg font-bold text-accent">
+                {index + 1}
+              </span>
+              <div class="card flex-1 px-5 py-4">
+                <p class="font-semibold text-ink">{point}</p>
+              </div>
+              {index < c.sequential.points.length - 1 && (
+                <span aria-hidden="true" class="hidden text-accent sm:block">↓</span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="section">
+  <div class="container-wide">
+    <h2 class="section-title text-balance">{c.howItWorks.heading}</h2>
+    <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        c.howItWorks.steps.map((step, index) => (
+          <li class="card p-6">
+            <span class="font-display text-4xl font-bold text-accent">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="mt-4 text-lg font-semibold">{step.title}</h3>
+            <p class="mt-2 text-muted-strong">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <a href={howItWorksPath} class="btn btn-secondary mt-8">{c.howItWorks.cta}</a>
+  </div>
+</section>
+
+<!-- Custom voice / history / offline -->
+<section class="section border-t border-line">
+  <div class="container-wide">
+    <h2 class="section-title text-balance">{c.panels.heading}</h2>
+    <div class="mt-10 grid gap-4 lg:grid-cols-3">
+      {
+        c.panels.items.map((item) => (
+          <article class="card flex flex-col p-7">
+            <h3 class="text-xl font-semibold">{item.title}</h3>
+            <p class="mt-3 flex-1 text-muted-strong">{item.body}</p>
+            <a
+              href={localizedPath(item.href, locale)}
+              class="mt-5 font-semibold text-accent transition-colors hover:text-accent-strong"
+            >
+              {item.linkLabel} →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Use cases -->
+<section class="section border-t border-line bg-surface">
+  <div class="container-wide">
+    <h2 class="section-title text-balance">{c.useCases.heading}</h2>
+    <p class="mt-4 max-w-[64ch] text-lg text-muted-strong">{c.useCases.intro}</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        c.useCases.cards.map((card) => (
+          <a href={localizedPath(card.href, locale)} class="card group p-6 transition-colors hover:border-accent">
+            <h3 class="text-lg font-semibold text-ink group-hover:text-accent">{card.title}</h3>
+            <p class="mt-3 text-muted-strong">{card.body}</p>
+            <span class="mt-5 inline-block font-semibold text-accent">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Credibility -->
+<section class="section border-t border-line">
+  <div class="container-wide">
+    <div class="card p-8 sm:p-10">
+      <h2 class="text-balance text-2xl font-bold sm:text-3xl">{c.credibility.heading}</h2>
+      <p class="mt-4 max-w-[72ch] text-lg text-muted-strong">{c.credibility.body}</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section border-t border-line">
+  <div class="container-wide">
+    <h2 class="section-title text-balance">{c.faqHeading}</h2>
+    <div class="mt-10 max-w-[860px]">
+      <FAQList items={c.faq} />
+    </div>
+  </div>
+</section>
+
+<FinalCTA locale={locale} />

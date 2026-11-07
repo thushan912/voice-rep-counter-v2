@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://voicerepcounter.com/sitemap-index.xml

@@ -1,0 +1,59 @@
+---
+import { contact } from '../data/contact';
+import { SITE, type Locale } from '../data/site';
+import Breadcrumbs from './Breadcrumbs.astro';
+import StoreBadges from './StoreBadges.astro';
+import FinalCTA from './FinalCTA.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = contact[locale];
+---
+
+<article>
+  <div class="border-b border-line">
+    <div class="container-wide py-10 sm:py-14">
+      <Breadcrumbs locale={locale} items={[{ name: c.h1 }]} />
+      <h1 class="text-balance max-w-[20ch] text-4xl font-bold sm:text-5xl">{c.h1}</h1>
+      <p class="mt-6 max-w-[64ch] text-lg text-muted-strong">{c.lead}</p>
+    </div>
+  </div>
+
+  <div class="container-wide py-14 sm:py-20">
+    <div class="grid gap-4 md:grid-cols-2">
+      <section class="card p-7">
+        <h2 class="text-xl font-semibold">{c.emailHeading}</h2>
+        <p class="mt-2 text-muted-strong">{c.emailNote}</p>
+        <a
+          href={`mailto:${SITE.contactEmail}`}
+          class="mt-4 inline-block text-lg font-semibold text-accent transition-colors hover:text-accent-strong"
+        >
+          {SITE.contactEmail}
+        </a>
+      </section>
+
+      <section class="card p-7">
+        <h2 class="text-xl font-semibold">{c.privacyHeading}</h2>
+        <p class="mt-2 text-muted-strong">{c.privacyNote}</p>
+      </section>
+
+      <section class="card p-7">
+        <h2 class="text-xl font-semibold">{c.responseHeading}</h2>
+        <p class="mt-2 text-muted-strong">{c.responseNote}</p>
+      </section>
+
+      <section class="card p-7">
+        <h2 class="text-xl font-semibold">{c.storesHeading}</h2>
+        <p class="mt-2 text-muted-strong">{c.storesNote}</p>
+        <div class="mt-4">
+          <StoreBadges locale={locale} />
+        </div>
+      </section>
+    </div>
+  </div>
+</article>
+
+<FinalCTA locale={locale} />

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExercisePage from '../../components/ExercisePage.astro';
+import { exerciseOrder, exercises, type ExerciseSlug } from '../../data/exercises';
+
+export function getStaticPaths() {
+  return exerciseOrder.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const locale = 'en';
+
+if (!slug || !(slug in exercises.en)) {
+  throw new Error(`Unknown exercise slug: ${slug}`);
+}
+
+const exercise = exercises.en[slug as ExerciseSlug];
+---
+
+<BaseLayout
+  locale={locale}
+  title={exercise.metaTitle}
+  description={exercise.metaDescription}
+  path={`/exercises/${slug}/`}
+>
+  <ExercisePage locale={locale} slug={slug as ExerciseSlug} />
+</BaseLayout>

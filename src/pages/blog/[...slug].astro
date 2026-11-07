@@ -1,0 +1,75 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../components/BlogPostLayout.astro';
+import { absoluteUrl } from '../../i18n/routes';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.locale === 'en' && !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { entryId: post.id },
+  }));
+}
+
+const { entryId } = Astro.props;
+const post = await getEntry('blog', entryId);
+
+if (!post) {
+  throw new Error(`Blog entry not found: ${entryId}`);
+}
+
+const { Content, headings } = await render(post);
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const relatedPosts = post.data.related
+  .map((slug) => allPosts.find((p) => p.data.locale === 'en' && p.data.slug === slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const itEquivalent = allPosts.find(
+  (p) => p.data.locale === 'it' && !p.data.draft && p.data.translationKey === post.data.translationKey,
+);
+
+const canonicalPath = `/blog/${post.data.slug}/`;
+const alternates = [
+  { lang: 'en', href: absoluteUrl(canonicalPath) },
+  ...(itEquivalent ? [{ lang: 'it', href: absoluteUrl(`/it/blog/${itEquivalent.data.slug}/`) }] : []),
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.updated ? { dateModified: post.data.updated.toISOString() } : {}),
+  author: { '@type': 'Organization', name: post.data.author },
+  mainEntityOfPage: absoluteUrl(canonicalPath),
+  inLanguage: 'en',
+};
+
+const article = {
+  publishedTime: post.data.date.toISOString(),
+  modifiedTime: post.data.updated?.toISOString(),
+};
+---
+
+<BaseLayout
+  locale="en"
+  title={post.data.title}
+  description={post.data.description}
+  path={canonicalPath}
+  article={article}
+  jsonLd={jsonLd}
+  hreflang={alternates}
+  xDefault={absoluteUrl(canonicalPath)}
+>
+  <BlogPostLayout
+    locale="en"
+    data={post.data}
+    headings={headings}
+    relatedPosts={relatedPosts.map((p) => ({ slug: p.data.slug, title: p.data.title }))}
+  >
+    <Content />
+  </BlogPostLayout>
+</BaseLayout>

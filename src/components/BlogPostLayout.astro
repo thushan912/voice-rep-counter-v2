@@ -1,0 +1,114 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../data/site';
+import { getUI } from '../i18n/ui';
+import { localizedPath } from '../i18n/routes';
+import { formatDate } from '../utils/formatDate';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FinalCTA from './FinalCTA.astro';
+
+type PostData = CollectionEntry<'blog'>['data'];
+
+interface MarkdownHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  locale: Locale;
+  data: PostData;
+  headings: MarkdownHeading[];
+  relatedPosts: { slug: string; title: string }[];
+}
+
+const { locale, data, headings, relatedPosts } = Astro.props;
+const t = getUI(locale);
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const blogPath = localizedPath('/blog/', locale);
+---
+
+<article>
+  <div class="border-b border-line">
+    <div class="container-wide py-10 sm:py-14">
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { name: t.nav.blog, href: blogPath },
+          { name: data.title },
+        ]}
+      />
+      <p class="eyebrow">{data.category}</p>
+      <h1 class="text-balance mt-4 max-w-[24ch] text-3xl font-bold sm:text-5xl">{data.title}</h1>
+      <p class="mt-5 max-w-[64ch] text-lg text-muted-strong">{data.description}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+        <span class="font-semibold text-muted-strong">{data.author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={data.date.toISOString()}>{formatDate(data.date, locale)}</time>
+        {
+          data.updated && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                {t.common.lastUpdated}: <time datetime={data.updated.toISOString()}>{formatDate(data.updated, locale)}</time>
+              </span>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide py-14 sm:py-20">
+    <div class="grid gap-12 lg:grid-cols-[1fr_280px]">
+      <div class="rich-text min-w-0">
+        <slot />
+      </div>
+
+      <aside class="space-y-8 lg:sticky lg:top-24 lg:self-start">
+        {
+          toc.length > 0 && (
+            <nav class="card p-6" aria-label="Table of contents">
+              <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">Contents</h2>
+              <ol class="mt-3 grid gap-2 text-sm">
+                {
+                  toc.map((heading) => (
+                    <li style={`padding-left: ${heading.depth === 3 ? '1rem' : '0'}`}>
+                      <a href={`#${heading.slug}`} class="text-muted-strong transition-colors hover:text-accent">
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+            </nav>
+          )
+        }
+
+        {
+          relatedPosts.length > 0 && (
+            <nav class="card p-6" aria-label={t.common.relatedPages}>
+              <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">{t.common.relatedPages}</h2>
+              <ul class="mt-3 grid gap-2 text-sm">
+                {
+                  relatedPosts.map((post) => (
+                    <li>
+                      <a
+                        href={localizedPath(`/blog/${post.slug}/`, locale)}
+                        class="text-muted-strong transition-colors hover:text-accent"
+                      >
+                        {post.title}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          )
+        }
+      </aside>
+    </div>
+  </div>
+</article>
+
+<FinalCTA locale={locale} />

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeaturePage from '../../../components/FeaturePage.astro';
+import { featureOrder, features, type FeatureSlug } from '../../../data/features';
+
+export function getStaticPaths() {
+  return featureOrder.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const locale = 'it';
+
+if (!slug || !(slug in features.it)) {
+  throw new Error(`Unknown feature slug: ${slug}`);
+}
+
+const feature = features.it[slug as FeatureSlug];
+---
+
+<BaseLayout
+  locale={locale}
+  title={feature.metaTitle}
+  description={feature.metaDescription}
+  path={`/it/features/${slug}/`}
+>
+  <FeaturePage locale={locale} slug={slug as FeatureSlug} />
+</BaseLayout>
