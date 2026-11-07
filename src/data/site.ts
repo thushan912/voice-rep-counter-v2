@@ -9,8 +9,7 @@ export const SITE = {
   name: 'Voice Rep Counter',
   storeName: 'Voice Rep Counter Coach',
   contactEmail: 'contact@codeneir.com',
-  // Legal ownership pending final human review before publishing.
-  legalOwner: 'Dimuthu Thushan Lankadewa / Codeneir',
+  legalOwner: 'Codeneir inc',
 } as const;
 
 export const APP_LINKS = {
