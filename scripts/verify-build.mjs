@@ -61,8 +61,8 @@ const expectedAssets = [
   'assets/images/Social-Sharing-Image.webp',
   'assets/images/Voice-Rep-Counting.webp',
   'assets/images/og-cover.jpg',
-  'assets/brand/google-play-badge.png',
-  'assets/brand/app-store-badge.svg',
+  'assets/brand/google.svg',
+  'assets/brand/apple.svg',
 ];
 
 let failures = 0;
