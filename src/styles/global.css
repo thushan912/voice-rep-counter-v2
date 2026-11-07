@@ -129,12 +129,12 @@
 
   /* One consistent, centered content container for the whole site. */
   .container-wide {
-    width: min(calc(100% - 64px), 1600px);
+    width: min(calc(100% - 72px), 1600px);
     margin-inline: auto;
   }
 
   .container-narrow {
-    width: min(calc(100% - 64px), 920px);
+    width: min(calc(100% - 72px), 920px);
     margin-inline: auto;
   }
 
@@ -150,11 +150,11 @@
 
   @media (min-width: 1440px) {
     .container-wide {
-      width: min(calc(100% - 128px), 1600px);
+      width: min(calc(100% - 144px), 1600px);
     }
 
     .container-narrow {
-      width: min(calc(100% - 128px), 920px);
+      width: min(calc(100% - 144px), 920px);
     }
   }
 
