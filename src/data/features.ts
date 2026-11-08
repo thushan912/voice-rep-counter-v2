@@ -24,7 +24,7 @@ export interface FeatureDetail {
   example: { heading: string; body: string[] };
   howTo: { heading: string; steps: string[] };
   limitations: { heading: string; body: string[] };
-  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions';
+  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions' | 'sequentialWorkouts';
   faqs: FeatureFAQ[];
   related: { slug: FeatureSlug; label: string }[];
 }
@@ -263,6 +263,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'This is scheduling, not exercise recognition. The app does not know whether you completed a movement.',
         ],
       },
+      image: 'sequentialWorkouts',
       faqs: [
         {
           q: 'What is the difference between Play All and Play Sequentially?',
@@ -589,6 +590,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'È pianificazione, non riconoscimento degli esercizi. L’app non sa se hai completato un movimento.',
         ],
       },
+      image: 'sequentialWorkouts',
       faqs: [
         {
           q: 'Qual è la differenza tra Play All e Play Sequentially?',

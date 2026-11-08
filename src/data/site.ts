@@ -64,6 +64,12 @@ export const IMAGES = {
     height: 992,
     alt: 'Illustration of custom workout session organization.',
   } satisfies ImageAsset,
+  sequentialWorkouts: {
+    src: '/assets/images/Sequential-Workout-Playback-App-Banner.webp',
+    width: 1672,
+    height: 941,
+    alt: 'Illustration of sequential workout playback and grouped sessions.',
+  } satisfies ImageAsset,
   socialSharing: {
     src: '/assets/images/Social-Sharing-Image.webp',
     width: 1731,
