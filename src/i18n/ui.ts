@@ -47,7 +47,6 @@ export interface UIStrings {
     lastUpdated: string;
     relatedPages: string;
     contactEmail: string;
-    illustrationNote: string;
   };
 }
 
@@ -100,7 +99,6 @@ export const ui: Record<Locale, UIStrings> = {
       lastUpdated: 'Last updated',
       relatedPages: 'Related pages',
       contactEmail: 'Contact',
-      illustrationNote: 'Marketing illustration. Interface may differ from the shipped app.',
     },
   },
   it: {
@@ -151,7 +149,6 @@ export const ui: Record<Locale, UIStrings> = {
       lastUpdated: 'Ultimo aggiornamento',
       relatedPages: 'Pagine correlate',
       contactEmail: 'Contatti',
-      illustrationNote: 'Illustrazione promozionale. L’interfaccia può differire dall’app pubblicata.',
     },
   },
 };
