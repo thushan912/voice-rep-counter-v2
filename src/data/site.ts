@@ -70,6 +70,12 @@ export const IMAGES = {
     height: 941,
     alt: 'Illustration of sequential workout playback and grouped sessions.',
   } satisfies ImageAsset,
+  workoutHistory: {
+    src: '/assets/images/workout-history.webp',
+    width: 1672,
+    height: 941,
+    alt: 'Illustration of completed workout history and session backup.',
+  } satisfies ImageAsset,
   socialSharing: {
     src: '/assets/images/Social-Sharing-Image.webp',
     width: 1731,

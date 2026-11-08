@@ -24,7 +24,7 @@ export interface FeatureDetail {
   example: { heading: string; body: string[] };
   howTo: { heading: string; steps: string[] };
   limitations: { heading: string; body: string[] };
-  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions' | 'sequentialWorkouts';
+  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions' | 'sequentialWorkouts' | 'workoutHistory';
   faqs: FeatureFAQ[];
   related: { slug: FeatureSlug; label: string }[];
 }
@@ -317,6 +317,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'The app records what you configured and completed; it does not produce performance charts or analyze physical output.',
         ],
       },
+      image: 'workoutHistory',
       faqs: [
         {
           q: 'Where is my history stored?',
@@ -644,6 +645,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'L’app registra ciò che hai configurato e completato; non produce grafici di prestazione né analizza l’output fisico.',
         ],
       },
+      image: 'workoutHistory',
       faqs: [
         {
           q: 'Dove viene salvato lo storico?',
