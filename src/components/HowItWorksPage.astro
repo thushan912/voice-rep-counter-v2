@@ -25,8 +25,8 @@ const c = howItWorks[locale];
   <!-- Premium visual walkthrough -->
   <div class="border-t border-line">
     {
-      c.sections.map((section, index) => (
-        <HowItWorksShowcase locale={locale} section={section} index={index} />
+      c.sections.map((section) => (
+        <HowItWorksShowcase locale={locale} section={section} />
       ))
     }
   </div>
