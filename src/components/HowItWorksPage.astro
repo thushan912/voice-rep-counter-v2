@@ -22,22 +22,6 @@ const c = howItWorks[locale];
     </div>
   </div>
 
-  <!-- Workflow summary cards -->
-  <div class="container-wide py-10 sm:py-14">
-    <div class="grid gap-4 md:grid-cols-3">
-      {
-        c.cards.map((card, index) => (
-          <a href={`#${card.anchor}`} class="card group p-7 transition-colors hover:border-accent">
-            <span class="font-display text-4xl font-bold text-accent">{String(index + 1).padStart(2, '0')}</span>
-            <h2 class="mt-4 text-xl font-semibold text-ink transition-colors group-hover:text-accent">{card.title}</h2>
-            <p class="mt-2 text-muted-strong">{card.description}</p>
-            <span class="mt-5 inline-block font-semibold text-accent">↓</span>
-          </a>
-        ))
-      }
-    </div>
-  </div>
-
   <!-- Premium visual walkthrough -->
   <div class="border-t border-line">
     {
