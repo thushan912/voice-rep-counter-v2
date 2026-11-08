@@ -1,0 +1,84 @@
+---
+import { localizedPath } from '../i18n/routes';
+import type { HowItWorksSection } from '../data/howItWorks';
+import type { Locale } from '../data/site';
+
+interface Props {
+  locale: Locale;
+  section: HowItWorksSection;
+  index: number;
+}
+
+const { locale, section, index } = Astro.props;
+const imageLeft = index % 2 === 0;
+---
+
+<section id={section.anchor} class="py-[clamp(48px,6vw,104px)]">
+  <div class="container-wide grid items-center gap-10 lg:grid-cols-2 lg:gap-[clamp(48px,4vw,80px)]">
+    <div class={imageLeft ? 'lg:order-1' : 'lg:order-2'}>
+      <div class="showcase-media">
+        <img
+          src={section.image.src}
+          alt={section.image.alt}
+          width={section.image.width}
+          height={section.image.height}
+          loading="lazy"
+          decoding="async"
+          class="showcase-image"
+        />
+      </div>
+    </div>
+
+    <div class={imageLeft ? 'lg:order-2' : 'lg:order-1'}>
+      <p class="eyebrow">{section.eyebrow}</p>
+      <h2 class="section-title text-balance mt-4">{section.heading}</h2>
+      <p class="mt-5 max-w-[58ch] text-lg text-muted-strong">{section.description}</p>
+
+      <div class="card mt-7 p-6">
+        <p class="font-semibold text-ink">{section.example.label}</p>
+        {
+          section.example.body && (
+            <p class="mt-2 text-muted-strong">{section.example.body}</p>
+          )
+        }
+        {
+          section.example.bullets && (
+            <ul class="mt-3 grid gap-2">
+              {
+                section.example.bullets.map((bullet) => (
+                  <li class="flex items-start gap-2">
+                    <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>
+                    <span class="text-muted-strong">{bullet}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          )
+        }
+      </div>
+
+      <ol class="mt-6 grid gap-3">
+        {
+          section.steps.map((step, stepIndex) => (
+            <li class="flex items-start gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-line-strong bg-surface font-display font-bold text-accent">
+                {stepIndex + 1}
+              </span>
+              <p class="pt-1 text-muted-strong">{step}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      {
+        section.note && (
+          <p class="mt-5 max-w-[58ch] text-sm text-muted">{section.note}</p>
+        )
+      }
+
+      <a href={localizedPath(section.cta.href, locale)} class="btn btn-primary mt-7">
+        {section.cta.label}
+      </a>
+    </div>
+  </div>
+</section>

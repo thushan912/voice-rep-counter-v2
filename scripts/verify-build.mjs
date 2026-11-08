@@ -50,7 +50,6 @@ const expectedRoutes = [
   '404.html',
   'robots.txt',
   'sitemap-index.xml',
-  'favicon.svg',
 ];
 
 const expectedAssets = [

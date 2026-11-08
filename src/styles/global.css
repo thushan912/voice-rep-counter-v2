@@ -248,6 +248,24 @@
     border: 1px solid var(--color-line);
   }
 
+  /* How It Works visual walkthrough media. */
+  .showcase-media {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(190, 255, 0, 0.15);
+    border-radius: 20px;
+    background: #070a07;
+  }
+
+  .showcase-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+  }
+
   /* Hero styling lives in HomePage.astro (scoped style block) so the athlete
      background and the phone mockup stay in independent, non-overlapping layers. */
 

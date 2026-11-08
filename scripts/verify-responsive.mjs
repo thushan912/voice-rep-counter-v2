@@ -11,6 +11,7 @@ const jobs = [
   { url: '/it/', label: 'home-it', widths: [390, 1440] },
   { url: '/features/rest-timer/', label: 'feature-rest-timer', widths: [390, 1440] },
   { url: '/blog/how-to-pace-push-ups-with-a-spoken-count/', label: 'blog-post', widths: [390, 1440] },
+  { url: '/how-it-works/', label: 'how-it-works', widths: [390, 768, 1440] },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
