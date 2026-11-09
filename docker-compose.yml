@@ -7,7 +7,8 @@ services:
     restart: unless-stopped
     ports:
       # Bound to loopback only; the host reverse proxy forwards public HTTPS here.
-      - "127.0.0.1:8085:80"
+      # 8085 is already used by codeneir-push-web, so use 8091 to avoid conflicts.
+      - "127.0.0.1:8091:80"
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
       interval: 30s
