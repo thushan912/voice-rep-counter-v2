@@ -80,7 +80,31 @@ const groups = [
       <p>
         © {year} {SITE.legalOwner}. {t.footer.rights}
       </p>
-      <p>{t.footer.legalReviewNote}</p>
+      <p class="flex items-center gap-2">
+        <span aria-hidden="true" class="h-2 w-2 rounded-full bg-accent"></span>
+        <time data-footer-clock data-locale={locale}>—</time>
+      </p>
     </div>
   </div>
 </footer>
+
+<script>
+  const clock = document.querySelector<HTMLElement>('[data-footer-clock]');
+
+  if (clock) {
+    const locale = clock.dataset.locale || 'en';
+    const update = () => {
+      clock.textContent = new Date().toLocaleString(locale === 'it' ? 'it-IT' : 'en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
+    };
+
+    update();
+    setInterval(update, 1000);
+  }
+</script>

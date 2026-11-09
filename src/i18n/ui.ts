@@ -30,7 +30,6 @@ export interface UIStrings {
     privacy: string;
     terms: string;
     rights: string;
-    legalReviewNote: string;
   };
   common: {
     home: string;
@@ -82,7 +81,6 @@ export const ui: Record<Locale, UIStrings> = {
       privacy: 'Privacy Policy',
       terms: 'Terms',
       rights: 'All rights reserved.',
-      legalReviewNote: 'Published legal identity is subject to final human review.',
     },
     common: {
       home: 'Home',
@@ -132,7 +130,6 @@ export const ui: Record<Locale, UIStrings> = {
       privacy: 'Informativa sulla privacy',
       terms: 'Termini',
       rights: 'Tutti i diritti riservati.',
-      legalReviewNote: 'L’identità legale pubblicata è soggetta a revisione finale.',
     },
     common: {
       home: 'Home',
