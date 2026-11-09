@@ -7,6 +7,7 @@ date: '2026-11-07'
 category: 'Explainer'
 tags: ['voice rep counter', 'explainer', 'rep detection']
 author: 'Voice Rep Counter'
+heroImage: '/assets/blog/Voice%20rep%20timer-vs-automatic-rep-detection.webp'
 draft: false
 translationKey: 'voice-timer-vs-detection'
 related:

@@ -59,6 +59,24 @@ const blogPath = localizedPath('/blog/', locale);
     </div>
   </div>
 
+  {
+    data.heroImage && (
+      <div class="container-wide pt-10 sm:pt-12">
+        <div class="showcase-media">
+          <img
+            src={data.heroImage}
+            alt={data.title}
+            width={1672}
+            height={941}
+            loading="eager"
+            decoding="async"
+            class="showcase-image"
+          />
+        </div>
+      </div>
+    )
+  }
+
   <div class="container-wide py-14 sm:py-20">
     <div class="grid gap-12 lg:grid-cols-[1fr_280px]">
       <div class="rich-text min-w-0">

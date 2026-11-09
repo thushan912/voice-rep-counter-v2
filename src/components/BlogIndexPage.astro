@@ -14,6 +14,16 @@ interface Props {
 }
 
 const { locale, h1, lead, posts } = Astro.props;
+
+// Editorial thumbnails keyed by post slug, so every blog card shows an image.
+const blogImages: Record<string, string> = {
+  'how-to-pace-push-ups-with-a-spoken-count': '/assets/images/Push-up-voice-pace.webp',
+  'how-long-to-rest-between-workout-sets': '/assets/images/Rest-between-sets.webp',
+  'bodyweight-circuit-rep-rest-timers': '/assets/images/Custom-Workout-Sessions.webp',
+  'voice-rep-timer-vs-automatic-rep-detection': '/assets/blog/Voice%20rep%20timer-vs-automatic-rep-detection.webp',
+  'come-scandire-i-piegamenti-con-un-conteggio-vocale': '/assets/images/Push-up-voice-pace.webp',
+  'timer-vocale-vs-rilevamento-automatico': '/assets/images/Voice-Rep-Counting.webp',
+};
 ---
 
 <article>
@@ -28,23 +38,46 @@ const { locale, h1, lead, posts } = Astro.props;
   <div class="container-wide py-14 sm:py-20">
     <div class="grid gap-4 md:grid-cols-2">
       {
-        posts.map((post) => (
-          <a
-            href={localizedPath(`/blog/${post.slug}/`, locale)}
-            class="card group flex flex-col p-7 transition-colors hover:border-accent"
-          >
-            <p class="eyebrow">{post.data.category}</p>
-            <h2 class="mt-3 text-xl font-semibold text-ink transition-colors group-hover:text-accent">
-              {post.data.title}
-            </h2>
-            <p class="mt-3 flex-1 text-muted-strong">{post.data.description}</p>
-            <div class="mt-5 flex items-center gap-2 text-sm text-muted">
-              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time>
-              <span aria-hidden="true">·</span>
-              <span class="font-semibold text-accent">→</span>
-            </div>
-          </a>
-        ))
+        posts.map((post) => {
+          const heroImage = blogImages[post.slug] ?? post.data.heroImage;
+          return (
+            <a
+              href={localizedPath(`/blog/${post.slug}/`, locale)}
+              class="card group grid grid-cols-[128px_1fr] overflow-hidden transition-colors hover:border-accent sm:grid-cols-[170px_1fr]"
+            >
+              <div class="relative min-h-[150px] overflow-hidden bg-surface-raised sm:min-h-[170px]">
+                {
+                  heroImage ? (
+                    <img
+                      src={heroImage}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      class="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div class="flex h-full w-full items-center justify-center bg-[radial-gradient(120%_120%_at_50%_0%,rgba(200,245,0,0.14),transparent_60%)]">
+                      <span class="font-display text-4xl font-bold text-accent/35">✦</span>
+                    </div>
+                  )
+                }
+              </div>
+
+              <div class="flex flex-col justify-center p-6">
+                <p class="eyebrow">{post.data.category}</p>
+                <h2 class="mt-2 text-xl font-semibold text-ink transition-colors group-hover:text-accent">
+                  {post.data.title}
+                </h2>
+                <p class="mt-2 text-muted-strong">{post.data.description}</p>
+                <div class="mt-4 flex items-center gap-2 text-sm text-muted">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time>
+                  <span aria-hidden="true">·</span>
+                  <span class="font-semibold text-accent">→</span>
+                </div>
+              </div>
+            </a>
+          );
+        })
       }
     </div>
   </div>
