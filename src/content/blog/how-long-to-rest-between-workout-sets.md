@@ -7,6 +7,7 @@ date: '2026-11-06'
 category: 'Guides'
 tags: ['rest timer', 'recovery', 'workout structure']
 author: 'Voice Rep Counter'
+heroImage: '/assets/blog/how-long-to-rest-between-workout-sets.webp'
 draft: false
 ---
 
