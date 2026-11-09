@@ -76,6 +76,12 @@ export const IMAGES = {
     height: 941,
     alt: 'Illustration of completed workout history and session backup.',
   } satisfies ImageAsset,
+  voiceSettings: {
+    src: '/assets/images/Voice-Settings.webp',
+    width: 1672,
+    height: 941,
+    alt: 'Illustration of adjustable voice settings for spoken workout coaching.',
+  } satisfies ImageAsset,
   socialSharing: {
     src: '/assets/images/Social-Sharing-Image.webp',
     width: 1731,

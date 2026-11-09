@@ -61,6 +61,7 @@ const expectedAssets = [
   'assets/images/Voice-Rep-Counting.webp',
   'assets/images/Sequential-Workout-Playback-App-Banner.webp',
   'assets/images/workout-history.webp',
+  'assets/images/Voice-Settings.webp',
   'assets/images/og-cover.jpg',
   'assets/images/favicon.ico',
   'assets/images/voice-rep-logo.png',

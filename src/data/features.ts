@@ -24,7 +24,7 @@ export interface FeatureDetail {
   example: { heading: string; body: string[] };
   howTo: { heading: string; steps: string[] };
   limitations: { heading: string; body: string[] };
-  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions' | 'sequentialWorkouts' | 'workoutHistory';
+  image?: 'voiceRepCounting' | 'restTimer' | 'customSessions' | 'sequentialWorkouts' | 'workoutHistory' | 'voiceSettings';
   faqs: FeatureFAQ[];
   related: { slug: FeatureSlug; label: string }[];
 }
@@ -371,6 +371,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'Available languages are fixed by the app; this is not an “unlimited voice languages” feature.',
         ],
       },
+      image: 'voiceSettings',
       faqs: [
         {
           q: 'Which spoken languages are available?',
@@ -699,6 +700,7 @@ export const features: Record<Locale, Record<FeatureSlug, FeatureDetail>> = {
           'Le lingue disponibili sono quelle dell’app: non si tratta di “lingue vocali illimitate”.',
         ],
       },
+      image: 'voiceSettings',
       faqs: [
         {
           q: 'Quali lingue parlate sono disponibili?',

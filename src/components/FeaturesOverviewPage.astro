@@ -18,6 +18,7 @@ const featureImages = {
   customSessions: IMAGES.customSessions,
   sequentialWorkouts: IMAGES.sequentialWorkouts,
   workoutHistory: IMAGES.workoutHistory,
+  voiceSettings: IMAGES.voiceSettings,
 } as const;
 ---
 
@@ -25,8 +26,8 @@ const featureImages = {
   <div class="border-b border-line">
     <div class="container-wide py-10 sm:py-14">
       <Breadcrumbs locale={locale} items={[{ name: overview.h1 }]} />
-      <h1 class="text-balance max-w-[22ch] text-4xl font-bold sm:text-5xl">{overview.h1}</h1>
-      <p class="mt-6 max-w-[64ch] text-lg text-muted-strong">{overview.lead}</p>
+      <h1 class="text-balance text-center text-4xl font-bold sm:text-5xl">{overview.h1}</h1>
+      <p class="mt-6 text-center text-lg text-muted-strong">{overview.lead}</p>
     </div>
   </div>
 
