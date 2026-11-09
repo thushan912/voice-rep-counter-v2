@@ -44,20 +44,20 @@ const groups = [
 
 <footer class="border-t border-line bg-surface">
   <div class="container-wide grid gap-12 py-16 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
-    <div class="max-w-[38ch]">
-      <a href={homePath(locale)} class="flex items-center gap-2.5 text-lg font-bold tracking-tight">
+    <div class="mx-auto max-w-[38ch] text-center lg:mx-0 lg:text-left">
+      <a href={homePath(locale)} class="flex items-center justify-center gap-2.5 text-lg font-bold tracking-tight lg:justify-start">
         <img src="/assets/images/voice-rep-logo.png" alt="" width="36" height="36" class="h-9 w-9 object-contain" />
         <span class="font-display">Voice Rep Counter</span>
       </a>
       <p class="mt-4 text-sm text-muted">{t.footer.tagline}</p>
       <div class="mt-6">
-        <StoreBadges locale={locale} />
+        <StoreBadges locale={locale} class="justify-center lg:justify-start" />
       </div>
     </div>
 
     {
       groups.map((group) => (
-        <nav aria-label={group.title}>
+        <nav aria-label={group.title} class="text-center lg:text-left">
           <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">{group.title}</h2>
           <ul class="mt-4 grid gap-3">
             {
@@ -76,11 +76,11 @@ const groups = [
   </div>
 
   <div class="border-t border-line">
-    <div class="container-wide flex flex-col gap-3 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+    <div class="container-wide flex flex-col items-center gap-3 py-6 text-center text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:text-left">
       <p>
         © {year} {SITE.legalOwner}. {t.footer.rights}
       </p>
-      <p class="flex items-center gap-2">
+      <p class="flex items-center justify-center gap-2 sm:justify-start">
         <span aria-hidden="true" class="h-2 w-2 rounded-full bg-accent"></span>
         <time data-footer-clock data-locale={locale}>—</time>
       </p>
