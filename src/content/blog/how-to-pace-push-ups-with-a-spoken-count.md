@@ -7,6 +7,7 @@ date: '2026-11-05'
 category: 'Guides'
 tags: ['push-ups', 'voice rep counter', 'pacing']
 author: 'Voice Rep Counter'
+heroImage: '/assets/blog/how-to-pace-push-ups-with-a-spoken-count.webp'
 draft: false
 translationKey: 'push-up-pacing'
 related:

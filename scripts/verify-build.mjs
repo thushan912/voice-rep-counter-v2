@@ -118,7 +118,7 @@ for (const file of htmlFiles) {
   }
 }
 
-const brokenRefs = [...referenced].filter((ref) => !existsSync(path.join(dist, ref)));
+const brokenRefs = [...referenced].filter((ref) => !existsSync(path.join(dist, decodeURIComponent(ref))));
 if (brokenRefs.length > 0) {
   failures += brokenRefs.length;
   console.error('Broken local asset references:', brokenRefs);
