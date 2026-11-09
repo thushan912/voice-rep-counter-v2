@@ -7,6 +7,7 @@ date: '2026-11-06'
 category: 'Guides'
 tags: ['circuit', 'bodyweight', 'sequential workouts']
 author: 'Voice Rep Counter'
+heroImage: '/assets/blog/bodyweight-circuit-rep-rest-timers.webp'
 draft: false
 ---
 
